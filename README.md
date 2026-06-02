@@ -44,4 +44,12 @@
 
 ## 反馈
 
-有问题或建议，欢迎到 [Issues](../../issues) 提。早期版本，你的反馈直接影响迭代 🙌
+有问题或建议，欢迎到 [Issues](../../issues) 提；也可以扫码进用户群，实时交流、反馈 bug。早期版本，你的反馈直接影响迭代 🙌
+
+<table>
+<tr>
+<td width="40%"><img src="assets/qr-group.png"><br><sub>微信扫码进「即投 · 用户沟通群」</sub></td>
+</tr>
+</table>
+
+> 二维码过期了？到 [Issues](../../issues) 留言或备注，我会更新。

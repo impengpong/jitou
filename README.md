@@ -8,12 +8,18 @@
 
 ## 安装
 
-下载 [Releases](../../releases) 里的 `jitou-v1.0.1.zip` → 解压 → 用开发者模式加载。
+下载 [Releases](../../releases) 里最新的 `jitou-vX.X.X.zip` → 解压 → 用开发者模式加载。
+
+> ⚠️ zip 不能直接安装，必须先解压。加载时**选中解压出来的整个文件夹**（里面有 `manifest.json` 的那个），不要进入文件夹去选里面的某个文件。
 
 <table>
 <tr>
-<td width="50%"><img src="assets/install-1.png"><br><sub><b>①</b> 浏览器菜单 → 扩展 → 管理扩展</sub></td>
-<td width="50%"><img src="assets/install-2.png"><br><sub><b>②</b> 开启「开发人员模式」→「加载解压缩的扩展」→ 选解压出的文件夹</sub></td>
+<td width="50%"><img src="assets/install-0-download.png"><br><sub><b>①</b> 在 Releases 页下载 <code>jitou-vX.X.X.zip</code>（Assets 里第一个）</sub></td>
+<td width="50%"><img src="assets/install-0b-folder.png"><br><sub><b>②</b> 解压 zip，记住解压出的<b>整个文件夹</b>的位置——后面要选它，不是选里面的文件</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="assets/install-1.png"><br><sub><b>③</b> 浏览器菜单 → 扩展 → 管理扩展</sub></td>
+<td width="50%"><img src="assets/install-2.png"><br><sub><b>④</b> 开启「开发人员模式」→「加载解压缩的扩展」→ 选中第②步解压出的<b>整个文件夹</b></sub></td>
 </tr>
 </table>
 

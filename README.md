@@ -1,77 +1,59 @@
-> ⚠️ 即投已迁移至官方网站。最新版本与全部功能请前往官网下载：https://letsjitou.com
-> 本仓库/本页及此处旧版本已停止维护、不保证可用；产品功能/服务条款/隐私政策一切以官网最新信息为准；此前发布的所有版本及条款均已失效、不再作数。
-
----
-
 # 即投 · jitou
 
-> BOSS 直聘 AI 自动投递助手 —— 一键海投，智能招呼语
+本地运行的 BOSS 直聘求职助手：筛选岗位、生成定制招呼语、确认后批量投递。
 
-即投帮你在 BOSS 直聘上批量投递岗位，并用 AI 读取你的简历自动生成招呼语，连同简历一起发给 HR。海投的重复操作交给它，你只管面试。
-
----
+**2.0 开源版不需要会员、激活码或付费额度。** AI 使用你自己的兼容 API，模型服务商可能另行收费；即投不提供公共密钥，也不经过作者的商业后端。
 
 ## 安装
 
-下载 [Releases](../../releases) 里最新的 `jitou-vX.X.X.zip` → 解压 → 用开发者模式加载。
+1. 在 [Releases](https://github.com/impengpong/jitou/releases) 下载开源版扩展 ZIP 并解压；也可下载本仓库源码。
+2. 打开 Chrome 的 `chrome://extensions` 或 Edge 的 `edge://extensions`，开启开发者模式。
+3. 点击“加载已解压的扩展”，选择含 `manifest.json` 的 `zitou-extension` 文件夹；打开 BOSS 直聘网页版，点击扩展图标打开侧栏。
 
-> ⚠️ zip 不能直接安装，必须先解压。加载时**选中解压出来的整个文件夹**（里面有 `manifest.json` 的那个），不要进入文件夹去选里面的某个文件。
+支持桌面版 Chrome / Edge。无需 Node.js、编译或部署作者的服务器。首次使用建议停用旧商业版，避免两套插件同时操作同一页面；旧版会员状态不会导入开源版。
 
-<table>
-<tr>
-<td width="50%"><img src="assets/install-0-download.png"><br><sub><b>①</b> 在 Releases 页下载 <code>jitou-vX.X.X.zip</code>（Assets 里第一个）</sub></td>
-<td width="50%"><img src="assets/install-0b-folder.png"><br><sub><b>②</b> 解压 zip，记住解压出的<b>整个文件夹</b>的位置——后面要选它，不是选里面的文件</sub></td>
-</tr>
-<tr>
-<td width="50%"><img src="assets/install-1.png"><br><sub><b>③</b> 浏览器菜单 → 扩展 → 管理扩展</sub></td>
-<td width="50%"><img src="assets/install-2.png"><br><sub><b>④</b> 开启「开发人员模式」→「加载解压缩的扩展」→ 选中第②步解压出的<b>整个文件夹</b></sub></td>
-</tr>
-</table>
+## 使用
 
-> 解压出的文件夹**别删、别挪**，扩展要一直读它。支持 Edge / Chrome / 360 / QQ 等 Chromium 浏览器。
+1. 在齿轮设置里填入你信任的、支持 Chat Completions 格式的 API 地址、API Key 和模型 ID，保存并允许访问该服务。API 地址通常形如 `https://api.example.com/v1`，模型 ID 以你的服务商为准。
+2. 粘贴文字简历，选城市、岗位与筛选条件；图片简历可额外上传，用于向 HR 发送。仅有图片而没有文字时，需要支持图片输入的模型；可在设置中指定同一服务下的视觉模型。
+3. 收集岗位，检查并选择目标岗位，确认招呼语后点击“一键发送”。也可直接编辑自定义招呼语，避免调用 AI。
 
----
+文字简历用于生成招呼语，不会自动变成文件发给 HR。图片或 BOSS 附件简历的发送沿用界面里的设置。保持 BOSS 的“启用招呼语”开关开启；遇到平台验证、登录失效或限制，应按页面提示处理。批次限制与延迟用于稳定性和平台风控，不是收费额度。
 
-## 怎么用
+### 本地模型
 
-<table>
-<tr>
-<td width="33%"><img src="assets/use-1.png"><br><sub><b>①</b> 登录 BOSS 直聘</sub></td>
-<td width="33%"><img src="assets/use-2.png"><br><sub><b>②</b> 传简历、选城市与期望岗位</sub></td>
-<td width="33%"><img src="assets/use-3.png"><br><sub><b>③</b> 自动搜集匹配岗位</sub></td>
-</tr>
-<tr>
-<td width="33%"><img src="assets/use-4.png"><br><sub><b>④</b> AI 生成招呼语，确认</sub></td>
-<td width="33%"><img src="assets/use-5.png"><br><sub><b>⑤</b> 一键批量投递</sub></td>
-<td width="33%"><img src="assets/use-6.png"><br><sub><b>⑥</b> 投递完成</sub></td>
-</tr>
-</table>
+可配置兼容接口的 `http://localhost:端口/v1` 或 `http://127.0.0.1:端口/v1`。本地接口可留空 API Key；仍需填写模型 ID。模型必须支持当前操作需要的文本或图片输入。
 
----
+## 数据与权限
 
-## 使用须知
+- 简历、设置、密钥和运行记录保存在当前浏览器配置内，不自动上传给作者。
+- 你触发 AI 操作时，相关简历、岗位内容和提示词会发送至你配置的模型服务；图片识别还会发送图片。请按该服务的隐私政策使用。
+- BOSS 页面权限用于筛选、读取岗位和投递。设置 API 时才请求访问对应服务地址，不默认授予所有网站访问权。
+- 开源版没有付款、会员校验、设备激活、客服云上传或行为分析后端。未修改或关闭历史商业版的线上服务。
+- API Key 不是加密保险箱中的秘密，能访问你的浏览器配置或设备的人可能读取它；不要把浏览器配置、简历或密钥提交到 GitHub。
 
-**① 先打开 BOSS 的「启用招呼语」开关 ⚠️ 重要**
+详见 [隐私说明](PRIVACY.md)。
 
-投递前请确认 BOSS 直聘已开启招呼语功能：`消息通知 → 设置打招呼语 → 启用招呼语`（默认是开的）。
-若关掉了它，点「立即沟通」会直接跳转聊天页，导致即投卡在「正在提取 HR 信息」无法继续。投不出去时，先来这里检查。
+## 开发与打包
 
-<img src="assets/enable-greeting.png" width="640"><br><sub>开关位置：左侧「设置打招呼语」→「启用招呼语」打开（绿色）</sub>
+源码是原生 JavaScript / HTML / CSS；修改后在扩展管理页点击“重新加载”。
 
-**② 一批别投太多，几十个就好**
+本地回归检查（Node.js 内置测试运行器，不会执行真实投递）：
 
-筛选条件太宽时，一次可能搜出一两百个岗位。建议**单批次投几十个**，分多次跑，更稳更不易出错。条件太糙时也建议收窄期望岗位/城市，匹配更准。
+```sh
+node --test tests/*.test.cjs zitou-extension/src/background/*.test.js zitou-extension/src/content/*.test.js
+```
 
----
+打包：
 
-## 隐私
+```sh
+python3 scripts/package.py
+```
 
-只在 BOSS 直聘（`*.zhipin.com`）运行，不碰其他网站；简历等数据存在你浏览器本地。生成招呼语时，简历内容会发给阿里云通义千问 AI（详见[隐私政策](https://jitou-privacy.netlify.app/privacy-policy.html)）。
+生成 `dist/jitou-2.0.0.zip`。解压后加载里面的 `zitou-extension` 文件夹。打包脚本只包含扩展运行文件，不收集本机用户数据。
 
-## 反馈
+## 反馈与许可
 
-有问题或建议，欢迎到 [Issues](../../issues) 提；也可以扫码进用户群，实时交流、反馈 bug。早期版本，你的反馈直接影响迭代 🙌
+问题请提交到 [Issues](https://github.com/impengpong/jitou/issues)。反馈时先去掉简历、手机号、聊天信息和密钥。
 
-<img src="assets/qr-group.png" width="200"><br><sub>微信扫码进「即投 · 用户沟通群」</sub>
-
-> 二维码过期了？到 [Issues](../../issues) 留言或备注，我会更新。
+代码以 [MIT License](LICENSE) 发布。第三方平台数据、名称与商标的边界见 [NOTICE](NOTICE)。自动化不能保证平台账号安全或求职结果，请遵守平台规则并自行确认发送内容。

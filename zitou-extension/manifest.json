@@ -1,0 +1,117 @@
+{
+  "manifest_version": 3,
+  "default_locale": "zh_CN",
+  "name": "即投 · 开源版",
+  "version": "2.0.0",
+  "description": "本地运行的 BOSS 直聘求职助手；AI 使用你自己的模型服务。",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "即投"
+  },
+  "side_panel": {
+    "default_path": "src/popup/popup.html"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "activeTab",
+    "scripting",
+    "sidePanel",
+    "alarms"
+  ],
+  "host_permissions": [
+    "*://*.zhipin.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.zhipin.com/web/geek/chat*"
+      ],
+      "js": [
+        "src/content/ws-probe.js",
+        "src/content/chatlist-collector.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://*.zhipin.com/web/geek/jobs*"
+      ],
+      "js": [
+        "src/content/welfare-collector.js",
+        "src/content/encbossid-collector.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://*.zhipin.com/web/geek/jobs*"
+      ],
+      "js": [
+        "src/content/selectors.js",
+        "src/content/salary-decoder.js",
+        "src/shared/error-logger.js",
+        "src/shared/diag-logger.js",
+        "src/content/job-collector.js",
+        "src/content/job-sender.js",
+        "src/content/job-clicker.js",
+        "src/content/content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://*.zhipin.com/web/geek/chat*"
+      ],
+      "js": [
+        "src/content/selectors.js",
+        "src/content/salary-decoder.js",
+        "src/shared/error-logger.js",
+        "src/shared/diag-logger.js",
+        "src/content/chat-monitor.js",
+        "src/content/job-sender.js",
+        "src/content/content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://*.zhipin.com/job_detail/*"
+      ],
+      "js": [
+        "src/content/selectors.js",
+        "src/content/salary-decoder.js",
+        "src/shared/error-logger.js",
+        "src/shared/diag-logger.js",
+        "src/content/job-sender.js",
+        "src/content/content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/db/*",
+        "src/popup/auto-reply-help.png"
+      ],
+      "matches": [
+        "*://*.zhipin.com/*"
+      ]
+    }
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ]
+}
